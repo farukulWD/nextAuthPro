@@ -1,30 +1,12 @@
-"use client";
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { Form, Input, Button } from "antd";
+import RegistrationForm from "@/components/RegisterForm";
+import React from "react";
 
-const RegistrationForm = () => {
-  const handleRegister = (e) => {
-    e.preventDefault();
-    const form = e.target;
-    console.log(form);
-  };
-
+const RegisterPage = () => {
   return (
-    <div
-      style={{
-        backgroundColor: "#000",
-        color: "white",
-        height: "90vh",
-      }}
-    >
-      <h2 style={{ textAlign: "center" }}>Registration</h2>
-      <Form onSubmit={handleRegister}>
-        <input type="text" name="name" id="" />
-        <input type="submit" value="submit" />
-      </Form>
+    <div>
+      <RegistrationForm></RegistrationForm>
     </div>
   );
 };
 
-export default RegistrationForm;
+export default RegisterPage;
