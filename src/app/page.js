@@ -1,9 +1,17 @@
-import Navbar from "./components/Navbar";
+"use client";
 
-export default function Home() {
+import { selectToken, setToken } from "@/redux/slice/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+
+const Home = () => {
+  const dispatch = useDispatch();
+  dispatch(setToken("kafjsdhfjshfkljsahfklash"));
+
+  const token = useSelector(selectToken);
   return (
     <main className="">
-      <Navbar></Navbar>
+      <div>This is Home page {token}</div>
     </main>
   );
-}
+};
+export default Home;
