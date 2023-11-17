@@ -120,21 +120,6 @@ const UpdateForm = () => {
             placeholder="birthDate"
           />
         </Form.Item>
-        <Form.Item
-          name="picture"
-          rules={[
-            {
-              required: true,
-              message: "Please input your email!",
-            },
-          ]}
-        >
-          <Input
-            type="file"
-            prefix={<MailOutlined className="site-form-item-icon" />}
-            placeholder="email"
-          />
-        </Form.Item>
 
         <Form.Item>
           <Button

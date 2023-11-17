@@ -11,14 +11,14 @@ const ProfilePage = () => {
   return (
     <div>
       <Card
-        title="Card title"
+        title="User Information"
         bordered={false}
         style={{
           width: 300,
         }}
       >
         <div>
-          <Image src="" alt="" />
+          <Image src={user?.profileImage} alt="" />
           <div></div>
         </div>
       </Card>

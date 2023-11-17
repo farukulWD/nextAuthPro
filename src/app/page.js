@@ -39,7 +39,7 @@ const Home = () => {
 
     fetchData();
   }, []);
-
+  console.log(user);
   return (
     <main>
       {loadingUser ? (
