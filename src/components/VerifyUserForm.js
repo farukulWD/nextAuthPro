@@ -32,7 +32,11 @@ const VerifyUserForm = () => {
         router.push("/login");
       }
     } catch (error) {
-      console.log(error.message);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: error.message,
+      });
     }
   };
   return (

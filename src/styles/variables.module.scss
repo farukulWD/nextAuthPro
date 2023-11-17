@@ -26,6 +26,25 @@ $secondary-color: #00ff22;
 .homeStyle {
   min-height: 100vh;
 }
+
+.homeContainer {
+  color: white;
+
+  .homeTitle {
+    font-size: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60vh;
+  }
+}
+
+.loaderHome {
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .container {
   height: 100vh;
   display: flex;

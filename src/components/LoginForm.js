@@ -1,7 +1,7 @@
 "use client";
 
 import { Button, Form, Input } from "antd";
-import React from "react";
+import React, { useState } from "react";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import { api } from "@/services/api";
@@ -13,10 +13,12 @@ import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
   const { login, getUserInfo } = api;
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const router = useRouter();
   const handleLogin = async (values) => {
     try {
+      setLoading(true);
       const response = await login(values);
       if (response.data) {
         const token = response.data.token;
@@ -25,7 +27,7 @@ const LoginForm = () => {
 
         if (token) {
           const user = await getUserInfo();
-          console.log(user.data.user);
+          setLoading(false);
           if (user.data.user) {
             dispatch(setUser(user.data.user));
             Swal.fire({
@@ -41,7 +43,11 @@ const LoginForm = () => {
         }
       }
     } catch (error) {
-      console.log(error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: error.message,
+      });
     }
   };
   return (
@@ -91,7 +97,9 @@ const LoginForm = () => {
 
         <div>
           <Form.Item>
-            <Button htmlType="submit">Log in</Button>
+            <Button disabled={loading} htmlType="submit">
+              {loading ? "Login..." : "Log In"}
+            </Button>
           </Form.Item>
           <Form.Item>
             <p className={variable.redirectText}>
