@@ -6,15 +6,16 @@ import { UserOutlined } from "@ant-design/icons";
 import variable from "@/styles/variables.module.scss";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
-import ForgotPassword from "@/app/forgotpass/page";
+import { api } from "@/services/api";
 
 const ForgotPassForm = () => {
+  const { forgotPassword } = api;
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const handleForgot = async (values) => {
     try {
       setLoading(true);
-      const response = await ForgotPassword(values);
+      const response = await forgotPassword(values);
       if (response.data) {
         Swal.fire({
           icon: "success",
@@ -24,11 +25,13 @@ const ForgotPassForm = () => {
         router.push("/login");
       }
     } catch (error) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: error.message,
-      });
+      if (error.message) {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: error.message,
+        });
+      }
     }
     setLoading(false);
   };

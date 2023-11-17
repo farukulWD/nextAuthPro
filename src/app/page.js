@@ -30,6 +30,7 @@ const Home = () => {
           const user = await getUserInfo();
           setGetUser(user);
           dispatch(setUser(user));
+          // dispatch(setToken())
         } catch (error) {
           console.error("Error fetching user info:", error);
         }

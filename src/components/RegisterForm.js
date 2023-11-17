@@ -20,6 +20,7 @@ const RegistrationForm = () => {
       setLoadingRegister(true);
       const response = await register(values);
       if (response.data.isOtpSend) {
+        localStorage.setItem("email", values.email);
         Swal.fire({
           position: "center center",
           icon: "success",
@@ -27,7 +28,6 @@ const RegistrationForm = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        localStorage.setItem("email", values.email);
         router.push("/verifyOtp");
       }
     } catch (error) {

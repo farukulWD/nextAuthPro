@@ -15,10 +15,13 @@ const UpdateForm = () => {
   const router = useRouter();
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
-  const {} = api;
+  const { updateUser } = api;
 
   const handleUpdate = async (values) => {
+    console.log(values);
     try {
+      const response = await updateUser(values);
+      console.log(response.data);
     } catch (error) {
       console.log(error);
       Swal.fire({
@@ -28,6 +31,7 @@ const UpdateForm = () => {
       });
     }
   };
+  console.log(user?.data?.user);
 
   return (
     <div className={variable.FormStyle}>
@@ -40,7 +44,6 @@ const UpdateForm = () => {
         className="updateForm"
         initialValues={{
           remember: true,
-          email: user?.email,
           name: user?.name,
         }}
         onFinish={handleUpdate}
@@ -55,24 +58,9 @@ const UpdateForm = () => {
           ]}
         >
           <Input
+            defaultValue={user?.data?.user?.name}
             prefix={<UserOutlined className="site-form-item-icon" />}
             placeholder="Username"
-          />
-        </Form.Item>
-        <Form.Item
-          name="email"
-          rules={[
-            {
-              required: true,
-              message: "Please input your email!",
-            },
-          ]}
-        >
-          <Input
-            readOnly
-            type="email"
-            prefix={<MailOutlined className="site-form-item-icon" />}
-            placeholder="email"
           />
         </Form.Item>
         <Form.Item

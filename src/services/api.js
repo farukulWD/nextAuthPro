@@ -21,4 +21,5 @@ export const api = {
   verifyEmail: (otpData) => instance.post("/api/user/verifyotp", otpData),
   getUserInfo: () => instance.post("/api/user/verify"),
   forgotPassword: (email) => instance.post("/api/user/forgotPassword", email),
+  updateUser: (values) => instance.patch("/api/user/update", values),
 };

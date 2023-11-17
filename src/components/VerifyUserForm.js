@@ -8,17 +8,12 @@ import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 
 const VerifyUserForm = () => {
-  const [getEmail, setGetEmail] = useState("");
   const router = useRouter();
-  useEffect(() => {
-    const getLocalStoreEmail = localStorage?.getItem("email") | "";
-    setGetEmail(getLocalStoreEmail);
-  }, []);
   const { verifyEmail } = api;
+
   const handleVerify = async (values) => {
     try {
       const response = await verifyEmail(values);
-      console.log(response.data);
       if (response.data.success) {
         Swal.fire({
           position: "center center",
@@ -28,7 +23,6 @@ const VerifyUserForm = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        localStorage.removeItem("email");
         router.push("/login");
       }
     } catch (error) {
@@ -39,24 +33,22 @@ const VerifyUserForm = () => {
       });
     }
   };
+
   return (
     <div className={variable.FormStyle}>
       <div className={variable.titleSection}>
         <h2 className={variable.title}>Please Verify</h2>
         <p className={variable.subTitle}>Your Email</p>
-        <p className={variable.emailClass}>We Have send an email {getEmail}</p>
+        <p className={variable.emailClass}>We Have send an email </p>
       </div>
       <Form
         style={{ width: "500px" }}
         name="verify email"
         className="verify-form"
-        initialValues={{
-          email: getEmail,
-        }}
+        initialValues={{}}
         onFinish={handleVerify}
       >
         <Form.Item
-          hidden
           name="email"
           rules={[
             {
@@ -66,9 +58,8 @@ const VerifyUserForm = () => {
           ]}
         >
           <Input
+            placeholder="type your email"
             type="email"
-            defaultValue={getEmail ? getEmail : "example@gmail.com"}
-            readOnly
             prefix={<UserOutlined className="site-form-item-icon" />}
           />
         </Form.Item>
@@ -89,11 +80,7 @@ const VerifyUserForm = () => {
         </Form.Item>
 
         <Form.Item>
-          <Button
-            type="secondary"
-            htmlType="submit"
-            className="login-form-button"
-          >
+          <Button type="secondary" htmlType="submit" className="verify-btn">
             Verify Now
           </Button>
         </Form.Item>
