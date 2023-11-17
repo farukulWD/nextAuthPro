@@ -4,27 +4,42 @@ import { useDispatch } from "react-redux";
 import { Form, Input, Button, Checkbox } from "antd";
 import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
 import { api } from "@/services/api";
+import variable from "@/styles/variables.module.scss";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
 
 const RegistrationForm = () => {
+  const router = useRouter();
   const { register } = api;
+
   const handleRegistration = async (values) => {
     try {
       const response = await register(values);
       console.log(response.data);
+      if (response.data.isOtpSend) {
+        Swal.fire({
+          position: "center center",
+          icon: "success",
+          title: "Please check your Email",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        localStorage.setItem("email", values.email);
+        router.push("/verifyOtp");
+      }
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <div
-      style={{
-        height: "90vh",
-      }}
-    >
-      <h2 style={{ textAlign: "center" }}>Registration</h2>
+    <div className={variable.LoginFormStyle}>
+      <div className={variable.titleSection}>
+        <h2 className={variable.title}>Welcome Back</h2>
+        <p className={variable.subTitle}>Please Register</p>
+      </div>
       <Form
         name="Register Form"
         className="registerForm"
@@ -76,11 +91,6 @@ const RegistrationForm = () => {
             placeholder="Password"
           />
         </Form.Item>
-        <Form.Item>
-          <a className="login-form-forgot" href="">
-            Forgot password
-          </a>
-        </Form.Item>
 
         <Form.Item>
           <Button
@@ -93,7 +103,10 @@ const RegistrationForm = () => {
         </Form.Item>
 
         <Form.Item>
-          <Link href={"/login"}>Login here</Link>
+          <p className={variable.redirectText}>
+            {" "}
+            All Ready Have an account <Link href={"/"}>Login here</Link>
+          </p>
         </Form.Item>
       </Form>
     </div>

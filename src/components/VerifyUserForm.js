@@ -3,30 +3,53 @@ import { Button, Form, Input } from "antd";
 import React from "react";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { api } from "@/services/api";
+import variable from "@/styles/variables.module.scss";
+import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
 
 const VerifyUserForm = () => {
+  const router = useRouter();
+  const getEmail = localStorage.getItem("email");
   const { verifyEmail } = api;
   const handleVerify = async (values) => {
     console.log(values);
     try {
       const response = await verifyEmail(values);
       console.log(response.data);
+      if (response.data.success) {
+        Swal.fire({
+          position: "center center",
+          icon: "success",
+          title: "Congratulation!!",
+          text: "Now login!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        localStorage.removeItem("email");
+        router.push("/login");
+      }
     } catch (error) {
       console.log(error.message);
     }
   };
   return (
-    <div className="flex items-center">
+    <div className={variable.LoginFormStyle}>
+      <div className={variable.titleSection}>
+        <h2 className={variable.title}>Please Verify</h2>
+        <p className={variable.subTitle}>Your Email</p>
+        <p className={variable.emailClass}>We Have send an email {getEmail}</p>
+      </div>
       <Form
         style={{ width: "500px" }}
         name="verify email"
         className="verify-form"
         initialValues={{
-          remember: true,
+          email: getEmail,
         }}
         onFinish={handleVerify}
       >
         <Form.Item
+          hidden
           name="email"
           rules={[
             {
@@ -37,8 +60,9 @@ const VerifyUserForm = () => {
         >
           <Input
             type="email"
+            defaultValue={getEmail ? getEmail : "example@gmail.com"}
+            readOnly
             prefix={<UserOutlined className="site-form-item-icon" />}
-            placeholder="email"
           />
         </Form.Item>
         <Form.Item

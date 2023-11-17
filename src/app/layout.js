@@ -14,7 +14,9 @@ export default function RootLayout({ children }) {
   return (
     <ReduxProvider>
       <html lang="en">
-        <body className={inter.className}>{children}</body>
+        <body suppressHydrationWarning={true} className={inter.className}>
+          {children}
+        </body>
       </html>
     </ReduxProvider>
   );

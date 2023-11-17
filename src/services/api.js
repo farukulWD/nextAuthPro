@@ -7,8 +7,10 @@ const instance = axios.create({
 
 instance.interceptors.request.use((config) => {
   const token = localStorage.getItem("token");
+  console.log(token);
+  console.log(config);
   if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+    config.headers.Authorization = token;
   }
   return config;
 });
@@ -17,5 +19,5 @@ export const api = {
   login: (loginData) => instance.post("/api/user/signin", loginData),
   register: (userData) => instance.post("/api/user/signup", userData),
   verifyEmail: (otpData) => instance.post("/api/user/verifyotp", otpData),
-  getUserInfo: () => instance.get("/api/user/verify"),
+  getUserInfo: () => instance.post("/api/user/verify"),
 };

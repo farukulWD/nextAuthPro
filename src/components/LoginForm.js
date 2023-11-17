@@ -5,21 +5,52 @@ import React from "react";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import { api } from "@/services/api";
+import variable from "@/styles/variables.module.scss";
+import { useDispatch } from "react-redux";
+import { setToken, setUser } from "@/redux/slice/userSlice";
+import Swal from "sweetalert2";
+import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
-  const { login } = api;
+  const { login, getUserInfo } = api;
+  const dispatch = useDispatch();
+  const router = useRouter();
   const handleLogin = async (values) => {
     try {
       const response = await login(values);
-      console.log(response.data);
+      if (response.data) {
+        const token = response.data.token;
+        localStorage.setItem("token", token);
+        dispatch(setToken(token));
+
+        if (token) {
+          const user = await getUserInfo();
+          console.log(user.data.user);
+          if (user.data.user) {
+            dispatch(setUser(user.data.user));
+            Swal.fire({
+              position: "center center",
+              icon: "success",
+              title: "Congratulation!!",
+              text: "Now Login successful",
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            router.push("/");
+          }
+        }
+      }
     } catch (error) {
-      console.log(error.message);
+      console.log(error);
     }
   };
   return (
-    <div className="flex items-center">
+    <div className={variable.LoginFormStyle}>
+      <div className={variable.titleSection}>
+        <h2 className={variable.title}>Welcome Back</h2>
+        <p className={variable.subTitle}>Please login</p>
+      </div>
       <Form
-        style={{ width: "500px" }}
         name="normal_login"
         className="login-form"
         initialValues={{
@@ -58,19 +89,19 @@ const LoginForm = () => {
           />
         </Form.Item>
 
-        <Form.Item>
-          <Button
-            type="secondary"
-            htmlType="submit"
-            className="login-form-button"
-          >
-            Log in
-          </Button>
-        </Form.Item>
-        <Form.Item>
-          <Form.Item>Or</Form.Item>
-          <Link href="/register">register now!</Link>
-        </Form.Item>
+        <div>
+          <Form.Item>
+            <Button htmlType="submit">Log in</Button>
+          </Form.Item>
+          <Form.Item>
+            <p className={variable.redirectText}>
+              Don.t Have an Account{" "}
+              <span className="redirectLink">
+                <Link href="/register">register now!</Link>
+              </span>
+            </p>
+          </Form.Item>
+        </div>
       </Form>
     </div>
   );

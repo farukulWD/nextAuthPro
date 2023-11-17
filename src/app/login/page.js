@@ -1,12 +1,12 @@
-import React from "react";
-
 import LoginForm from "@/components/LoginForm";
-
-const NormalLoginForm = () => {
+import React from "react";
+import variable from "@/styles/variables.module.scss";
+const LoginPage = () => {
   return (
-    <div className="flex h-[100vh] justify-center">
+    <div className={`${variable.container}`}>
       <LoginForm></LoginForm>
     </div>
   );
 };
-export default NormalLoginForm;
+
+export default LoginPage;

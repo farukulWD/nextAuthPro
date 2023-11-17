@@ -1,16 +1,16 @@
 "use client";
 
-import { selectToken, setToken } from "@/redux/slice/userSlice";
+import LoginForm from "@/components/LoginForm";
+import { selectToken, selectUser, setToken } from "@/redux/slice/userSlice";
 import { useDispatch, useSelector } from "react-redux";
+import variable from "@/styles/variables.module.scss";
 
 const Home = () => {
-  const dispatch = useDispatch();
-  dispatch(setToken("kafjsdhfjshfkljsahfklash"));
-
-  const token = useSelector(selectToken);
+  const user = useSelector(selectUser);
+  console.log(user);
   return (
-    <main className="">
-      <div>This is Home page {token}</div>
+    <main>
+      <h1>This is home page</h1>
     </main>
   );
 };
