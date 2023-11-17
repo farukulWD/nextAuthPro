@@ -88,8 +88,9 @@ $secondary-color: #00ff22;
 
 @include mobile {
   .FormStyle {
+    padding: 5px;
     Form {
-      width: full;
+      width: 100%;
     }
   }
 }

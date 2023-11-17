@@ -18,7 +18,6 @@ const ProfilePage = () => {
         }}
       >
         <div>
-          <Image src={user?.profileImage} alt="" />
           <div></div>
         </div>
       </Card>
