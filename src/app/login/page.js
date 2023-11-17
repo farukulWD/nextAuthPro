@@ -3,7 +3,7 @@ import React from "react";
 import variable from "@/styles/variables.module.scss";
 const LoginPage = () => {
   return (
-    <div className={`${variable.container}`}>
+    <div className={variable.container}>
       <LoginForm></LoginForm>
     </div>
   );

@@ -4,7 +4,7 @@ import variable from "@/styles/variables.module.scss";
 
 const page = () => {
   return (
-    <div className={`${variable.container}`}>
+    <div className={variable.container}>
       <VerifyUserForm></VerifyUserForm>
     </div>
   );

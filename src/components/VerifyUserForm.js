@@ -1,6 +1,6 @@
 "use client";
 import { Button, Form, Input } from "antd";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { api } from "@/services/api";
 import variable from "@/styles/variables.module.scss";
@@ -8,11 +8,14 @@ import { useRouter } from "next/navigation";
 import Swal from "sweetalert2";
 
 const VerifyUserForm = () => {
+  const [getEmail, setGetEmail] = useState("");
   const router = useRouter();
-  const getEmail = localStorage.getItem("email");
+  useEffect(() => {
+    const getLocalStoreEmail = localStorage?.getItem("email") | "";
+    setGetEmail(getLocalStoreEmail);
+  }, []);
   const { verifyEmail } = api;
   const handleVerify = async (values) => {
-    console.log(values);
     try {
       const response = await verifyEmail(values);
       console.log(response.data);

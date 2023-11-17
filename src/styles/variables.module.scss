@@ -23,7 +23,9 @@ $secondary-color: #00ff22;
 .bgImage {
   background-image: url("../../public/backgroudImage.jpg");
 }
-
+.homeStyle {
+  min-height: 100vh;
+}
 .container {
   height: 100vh;
   display: flex;

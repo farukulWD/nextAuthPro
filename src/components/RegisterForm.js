@@ -105,7 +105,7 @@ const RegistrationForm = () => {
         <Form.Item>
           <p className={variable.redirectText}>
             {" "}
-            All Ready Have an account <Link href={"/"}>Login here</Link>
+            All Ready Have an account <Link href={"/login"}>Login here</Link>
           </p>
         </Form.Item>
       </Form>
