@@ -15,7 +15,7 @@ const Navbar = () => {
   const profileMenu = (
     <Menu>
       <Menu.Item key="updateProfile">
-        <Link href="/update-profile">Update Profile</Link>
+        <Link href="/updateprofile">Update Profile</Link>
       </Menu.Item>
       <Menu.Item key="logout">
         <button onClick={handleLogout}>Log Out</button>

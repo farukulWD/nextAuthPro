@@ -51,7 +51,7 @@ const LoginForm = () => {
     }
   };
   return (
-    <div className={variable.LoginFormStyle}>
+    <div className={variable.FormStyle}>
       <div className={variable.titleSection}>
         <h2 className={variable.title}>Welcome Back</h2>
         <p className={variable.subTitle}>Please login</p>
@@ -95,6 +95,14 @@ const LoginForm = () => {
           />
         </Form.Item>
 
+        <Form.Item>
+          <p className={variable.redirectText}>
+            Forgot your{" "}
+            <span className="redirectLink">
+              <Link href="/forgotpass">Password</Link>
+            </span>
+          </p>
+        </Form.Item>
         <div>
           <Form.Item>
             <Button disabled={loading} htmlType="submit">

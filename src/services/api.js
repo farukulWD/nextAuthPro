@@ -20,4 +20,5 @@ export const api = {
   register: (userData) => instance.post("/api/user/signup", userData),
   verifyEmail: (otpData) => instance.post("/api/user/verifyotp", otpData),
   getUserInfo: () => instance.post("/api/user/verify"),
+  forgotPassword: (email) => instance.post("/api/user/forgotPassword", email),
 };

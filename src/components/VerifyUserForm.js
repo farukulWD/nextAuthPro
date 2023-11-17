@@ -40,7 +40,7 @@ const VerifyUserForm = () => {
     }
   };
   return (
-    <div className={variable.LoginFormStyle}>
+    <div className={variable.FormStyle}>
       <div className={variable.titleSection}>
         <h2 className={variable.title}>Please Verify</h2>
         <p className={variable.subTitle}>Your Email</p>

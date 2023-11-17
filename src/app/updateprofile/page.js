@@ -1,7 +1,14 @@
 import React from "react";
 
-const page = () => {
-  return <div>This is update route</div>;
+import variable from "@/styles/variables.module.scss";
+import UpdateForm from "@/components/updateForm";
+
+const UpdateProfilePage = () => {
+  return (
+    <div className={variable.container}>
+      <UpdateForm></UpdateForm>
+    </div>
+  );
 };
 
-export default page;
+export default UpdateProfilePage;

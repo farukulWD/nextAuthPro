@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Form, Input, Button, Checkbox } from "antd";
 import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
@@ -13,11 +13,12 @@ import Swal from "sweetalert2";
 const RegistrationForm = () => {
   const router = useRouter();
   const { register } = api;
+  const [loadingRegister, setLoadingRegister] = useState(false);
 
   const handleRegistration = async (values) => {
     try {
+      setLoadingRegister(true);
       const response = await register(values);
-      console.log(response.data);
       if (response.data.isOtpSend) {
         Swal.fire({
           position: "center center",
@@ -37,10 +38,11 @@ const RegistrationForm = () => {
         text: error.message,
       });
     }
+    setLoadingRegister(false);
   };
 
   return (
-    <div className={variable.LoginFormStyle}>
+    <div className={variable.FormStyle}>
       <div className={variable.titleSection}>
         <h2 className={variable.title}>Welcome Back</h2>
         <p className={variable.subTitle}>Please Register</p>
@@ -99,11 +101,12 @@ const RegistrationForm = () => {
 
         <Form.Item>
           <Button
+            disabled={loadingRegister}
             type="secondary"
             htmlType="submit"
             className="login-form-button"
           >
-            register now!
+            {loadingRegister ? "creating...." : "register now!"}
           </Button>
         </Form.Item>
 
