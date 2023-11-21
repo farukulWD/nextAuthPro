@@ -19,6 +19,7 @@ const Home = () => {
   const { getUserInfo } = api;
   const [getUser, setGetUser] = useState({});
   const user = useSelector(selectUser);
+  const tokenForm = useSelector(selectToken);
   const [loadingUser, setLoadingUser] = useState(false);
 
   useEffect(() => {
@@ -40,7 +41,7 @@ const Home = () => {
 
     fetchData();
   }, []);
-  console.log(user);
+
   return (
     <main>
       {loadingUser ? (

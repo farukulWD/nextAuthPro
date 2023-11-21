@@ -10,6 +10,7 @@ import { useDispatch } from "react-redux";
 import { setToken, setUser } from "@/redux/slice/userSlice";
 import Swal from "sweetalert2";
 import { useRouter } from "next/navigation";
+import createJWT from "@/utils/createJWT";
 
 const LoginForm = () => {
   const { login, getUserInfo } = api;
@@ -17,9 +18,12 @@ const LoginForm = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const handleLogin = async (values) => {
+    const email = values.email;
     try {
       setLoading(true);
       const response = await login(values);
+      createJWT({ email });
+
       if (response.data) {
         const token = response.data.token;
         localStorage.setItem("token", token);

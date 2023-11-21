@@ -44,7 +44,10 @@ const UpdateForm = () => {
         className="updateForm"
         initialValues={{
           remember: true,
-          name: user?.name,
+          name: user?.data?.user?.name,
+          contactNumber: user?.data?.user?.contactNumber,
+          gender: user?.data?.user?.gender,
+          birthDate: user?.data?.user?.birthDate,
         }}
         onFinish={handleUpdate}
       >
@@ -73,6 +76,7 @@ const UpdateForm = () => {
           ]}
         >
           <Input
+            defaultValue={user?.data?.user?.contactNumber}
             type="number"
             prefix={<MailOutlined className="site-form-item-icon" />}
             placeholder="Your contact Number"
@@ -88,6 +92,7 @@ const UpdateForm = () => {
           ]}
         >
           <Input
+            defaultValue={user?.data?.user?.gender}
             type="text"
             prefix={<MailOutlined className="site-form-item-icon" />}
             placeholder="gender"
@@ -103,6 +108,7 @@ const UpdateForm = () => {
           ]}
         >
           <Input
+            defaultValue={user?.data?.user?.birthDate}
             type="date"
             prefix={<MailOutlined className="site-form-item-icon" />}
             placeholder="birthDate"

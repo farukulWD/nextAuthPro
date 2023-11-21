@@ -3,11 +3,12 @@
 import React from "react";
 import { Menu, Dropdown } from "antd";
 import Link from "next/link";
-import { clearUser } from "@/redux/slice/userSlice";
-import { useDispatch } from "react-redux";
+import { clearUser, selectUser } from "@/redux/slice/userSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const Navbar = () => {
   const dispatch = useDispatch();
+  const user = useSelector(selectUser);
   const handleLogout = () => {
     dispatch(clearUser());
     localStorage.removeItem("token");
@@ -17,9 +18,14 @@ const Navbar = () => {
       <Menu.Item key="updateProfile">
         <Link href="/updateprofile">Update Profile</Link>
       </Menu.Item>
-      <Menu.Item key="logout">
-        <button onClick={handleLogout}>Log Out</button>
-      </Menu.Item>
+
+      {user?.data?.user?.email ? (
+        <Menu.Item key={"logout"}>
+          <button onClick={handleLogout}>Log Out</button>
+        </Menu.Item>
+      ) : (
+        ""
+      )}
     </Menu>
   );
 
