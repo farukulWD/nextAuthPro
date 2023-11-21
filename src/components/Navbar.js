@@ -5,12 +5,23 @@ import { Menu, Dropdown } from "antd";
 import Link from "next/link";
 import { clearUser, selectUser } from "@/redux/slice/userSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { usePathname, useRouter } from "next/navigation";
 
 const Navbar = () => {
+  const { replace, refresh } = useRouter();
+  const path = usePathname();
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
-  const handleLogout = () => {
+  const handleLogout = async () => {
     dispatch(clearUser());
+    const res = await fetch("/api/auth/logout", {
+      method: "POST",
+    });
+    await res.json();
+    if (path.includes("/profile")) {
+      replace(`/`);
+    }
+
     localStorage.removeItem("token");
   };
   const profileMenu = (

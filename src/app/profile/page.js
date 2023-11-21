@@ -7,28 +7,31 @@ import variable from "@/styles/variables.module.scss";
 
 const ProfilePage = () => {
   const user = useSelector(selectUser);
-  console.log(user);
   return (
     <div className={variable.container}>
-      <Card
-        title="User Information"
-        bordered={false}
-        style={{
-          width: 300,
-        }}
-      >
-        <div>
+      {user ? (
+        <Card
+          title="User Information"
+          bordered={false}
+          style={{
+            width: 300,
+          }}
+        >
           <div>
-            <h3>name: {user?.data?.user?.name}</h3>
-            <p>Email: {user?.data?.user?.email}</p>
-            <p>Phone: {user?.data?.user?.contactNumber}</p>
+            <div>
+              <h3>name: {user?.data?.user?.name}</h3>
+              <p>Email: {user?.data?.user?.email}</p>
+              <p>Phone: {user?.data?.user?.contactNumber}</p>
+            </div>
+            <div>
+              <p>Date of Birth: {user?.data?.user?.birthDate}</p>
+              <p>Gender: {user?.data?.user?.gender}</p>
+            </div>
           </div>
-          <div>
-            <p>Date of Birth: {user?.data?.user?.birthDate}</p>
-            <p>Gender: {user?.data?.user?.gender}</p>
-          </div>
-        </div>
-      </Card>
+        </Card>
+      ) : (
+        ""
+      )}
     </div>
   );
 };

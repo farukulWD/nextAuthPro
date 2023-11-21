@@ -22,11 +22,10 @@ const LoginForm = () => {
   const router = useRouter();
   const handleLogin = async (values) => {
     const email = values.email;
+    setLoading(true);
     try {
-      setLoading(true);
       const response = await login(values);
       createJWT({ email });
-
       if (response.data) {
         const token = response.data.token;
         localStorage.setItem("token", token);
@@ -34,9 +33,9 @@ const LoginForm = () => {
 
         if (token) {
           const user = await getUserInfo();
-          setLoading(false);
           if (user.data.user) {
-            dispatch(setUser(user.data.user));
+            console.log(user);
+            dispatch(setUser(user));
             Swal.fire({
               position: "center center",
               icon: "success",
@@ -45,17 +44,19 @@ const LoginForm = () => {
               showConfirmButton: false,
               timer: 1500,
             });
-            replace(from);
           }
+          replace(from);
         }
       }
     } catch (error) {
+      console.log(error);
       Swal.fire({
         icon: "error",
         title: "Oops...",
         text: error.message,
       });
     }
+    setLoading(false);
   };
   return (
     <div className={variable.FormStyle}>

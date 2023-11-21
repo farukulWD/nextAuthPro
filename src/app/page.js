@@ -17,9 +17,7 @@ import { Flex, Spin } from "antd";
 const Home = () => {
   const dispatch = useDispatch();
   const { getUserInfo } = api;
-  const [getUser, setGetUser] = useState({});
   const user = useSelector(selectUser);
-  const tokenForm = useSelector(selectToken);
   const [loadingUser, setLoadingUser] = useState(false);
 
   useEffect(() => {
@@ -29,9 +27,7 @@ const Home = () => {
       if (token) {
         try {
           const user = await getUserInfo();
-          setGetUser(user);
           dispatch(setUser(user));
-          // dispatch(setToken())
         } catch (error) {
           console.error("Error fetching user info:", error);
         }
