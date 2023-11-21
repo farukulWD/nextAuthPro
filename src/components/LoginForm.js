@@ -9,10 +9,13 @@ import variable from "@/styles/variables.module.scss";
 import { useDispatch } from "react-redux";
 import { setToken, setUser } from "@/redux/slice/userSlice";
 import Swal from "sweetalert2";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import createJWT from "@/utils/createJWT";
 
 const LoginForm = () => {
+  const search = useSearchParams();
+  const form = search.get("redirectUrl" || "/");
+  const { replace } = useRouter();
   const { login, getUserInfo } = api;
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
@@ -42,7 +45,7 @@ const LoginForm = () => {
               showConfirmButton: false,
               timer: 1500,
             });
-            router.push("/");
+            replace(from);
           }
         }
       }
