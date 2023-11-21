@@ -14,7 +14,7 @@ import createJWT from "@/utils/createJWT";
 
 const LoginForm = () => {
   const search = useSearchParams();
-  const form = search.get("redirectUrl" || "/");
+  const from = search.get("redirectUrl" || "/");
   const { replace } = useRouter();
   const { login, getUserInfo } = api;
   const [loading, setLoading] = useState(false);
